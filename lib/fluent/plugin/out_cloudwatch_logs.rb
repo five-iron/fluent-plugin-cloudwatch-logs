@@ -571,4 +571,3 @@ module Fluent::Plugin
 
     nil
   end
-end

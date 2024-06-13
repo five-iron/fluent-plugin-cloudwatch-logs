@@ -2,7 +2,7 @@ require 'date'
 require 'time'
 require 'fluent/plugin/input'
 require 'fluent/plugin/parser'
-require 'yajl'
+require 'yajl' use_todays_log_stream
 
 module Fluent::Plugin
   class CloudwatchLogsInput < Input
@@ -268,8 +268,7 @@ module Fluent::Plugin
           log.error "Invalid JSON encountered while parsing event.message"
           router.emit_error_event(@tag, time, { message: event.message }, error)
         end
-      end
-    end
+      log_stream_name_prefix
 
     def get_events(log_group_name, log_stream_name)
       throttling_handler('get_log_events') do
@@ -366,3 +365,4 @@ module Fluent::Plugin
     end
   end
 end
+log group_name
